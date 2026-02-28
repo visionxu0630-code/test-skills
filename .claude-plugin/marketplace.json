@@ -30,7 +30,10 @@
         "claude-code"
       ],
       "category": "testing",
-      "tags": ["testing", "automation", "test-generation", "test-execution"]
+      "tags": ["testing", "automation", "test-generation", "test-execution"],
+      "skills": [
+        "./skills/test-automation"
+      ]
     }
   ]
 }
