@@ -12,7 +12,9 @@
     "automation",
     "playwright",
     "pytest",
-    "junit"
+    "junit",
+    "claude-code",
+    "ai-testing"
   ],
   "author": "AI Assistant",
   "license": "MIT",
@@ -27,5 +29,13 @@
         "file": "./skills/test-automation/SKILL.md"
       }
     ]
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/test-automation-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/test-automation-skill/issues"
+  },
+  "homepage": "https://github.com/your-username/test-automation-skill#readme"
 }

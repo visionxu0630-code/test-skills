@@ -4,7 +4,19 @@
 
 ## 安装
 
-### 从本地安装（推荐用于开发）
+### 从 Marketplace 安装（推荐）
+
+如果你已将此仓库发布到 GitHub，可以使用以下命令安装：
+
+```bash
+# 添加此仓库作为 marketplace
+/plugin marketplace add your-username/test-automation-skill
+
+# 安装插件
+/plugin install test-automation-skill@test-automation
+```
+
+### 从本地安装（开发用）
 
 1. 确保已安装依赖：
    ```bash
