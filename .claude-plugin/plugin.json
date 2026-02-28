@@ -4,16 +4,5 @@
   "description": "Comprehensive test automation skill that generates test cases from natural language descriptions",
   "author": {
     "name": "visionxu0630-code"
-  },
-  "license": "MIT",
-  "repository": "https://github.com/visionxu0630-code/test-skills",
-  "keywords": [
-    "testing",
-    "automation",
-    "playwright",
-    "pytest",
-    "junit",
-    "claude-skill",
-    "claude-code"
-  ]
+  }
 }
