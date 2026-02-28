@@ -1,0 +1,12 @@
+{
+  "name": "test-skills",
+  "description": "A collection of test automation skills",
+  "version": "1.0.0",
+  "skills": [
+    {
+      "name": "test-automation",
+      "file": "./skills/test-automation/SKILL.md",
+      "description": "Comprehensive test automation skill that generates test cases from natural language descriptions"
+    }
+  ]
+}
