@@ -10,9 +10,10 @@
     {
       "name": "test-automation",
       "description": "Comprehensive test automation skill that generates test cases from natural language descriptions",
-      "files": [
-        "./skills/test-automation/SKILL.md"
-      ]
+      "source": {
+        "type": "local",
+        "path": "./skills/test-automation/SKILL.md"
+      }
     }
   ]
 }
