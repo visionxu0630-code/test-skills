@@ -13,7 +13,7 @@
 /plugin marketplace add visionxu0630-code/test-skills
 
 # 安装插件
-/plugin install test-skills@test-automation
+/plugin install test-automation
 ```
 
 ### 从本地安装（开发用）
