@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "test-automation",
-      "source": "./skills/test-automation/",
+      "source": "./",
       "description": "Comprehensive test automation skill that generates test cases from natural language descriptions",
       "version": "1.0.0",
       "author": {
