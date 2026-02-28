@@ -26,16 +26,16 @@
     "skills": [
       {
         "name": "test-automation",
-        "file": "./skills/test-automation/SKILL.md"
+        "directory": "./skills/test-automation/"
       }
     ]
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/test-automation-skill.git"
+    "url": "https://github.com/visionxu0630-code/test-automation-skill.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/test-automation-skill/issues"
+    "url": "https://github.com/visionxu0630-code/test-automation-skill/issues"
   },
-  "homepage": "https://github.com/your-username/test-automation-skill#readme"
+  "homepage": "https://github.com/visionxu0630-code/test-automation-skill#readme"
 }
