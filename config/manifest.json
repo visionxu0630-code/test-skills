@@ -1,0 +1,46 @@
+{
+  "name": "Custom Test Skill",
+  "version": "1.0.0",
+  "description": "一个综合性的测试技能，能够根据自然语言描述自动生成测试用例、执行测试并提供测试覆盖率分析。",
+  "author": "AI Assistant",
+  "commands": [
+    {
+      "name": "/test",
+      "description": "主命令，用于创建、运行和管理测试",
+      "subcommands": [
+        {
+          "name": "create",
+          "description": "根据自然语言描述创建新的测试用例",
+          "usage": "/test create [description]"
+        },
+        {
+          "name": "run",
+          "description": "运行测试用例",
+          "usage": "/test run [all|failed|specific]"
+        },
+        {
+          "name": "report",
+          "description": "生成测试报告",
+          "usage": "/test report [--detailed]"
+        },
+        {
+          "name": "suggest",
+          "description": "建议额外的测试场景",
+          "usage": "/test suggest --edge-cases [feature]"
+        }
+      ]
+    }
+  ],
+  "supported_frameworks": [
+    "playwright",
+    "pytest",
+    "junit"
+  ],
+  "default_config": {
+    "framework": "playwright",
+    "language": "en-US",
+    "priority": "high",
+    "browser": "chrome",
+    "timeout": 30
+  }
+}
