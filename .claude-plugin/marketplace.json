@@ -1,8 +1,61 @@
 {
-  "name": "test-automation",
-  "version": "1.0.0",
-  "description": "Comprehensive test automation skill that generates test cases from natural language descriptions",
-  "author": {
-    "name": "visionxu0630-code"
-  }
+  "name": "test-skills",
+  "owner": {
+    "name": "visionxu0630-code",
+    "email": "vision.xu@kikitrade.com"
+  },
+  "metadata": {
+    "description": "Comprehensive test automation and scenario analysis skills for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "test-automation",
+      "source": "./skills/test-automation",
+      "description": "Comprehensive test automation skill that generates test cases from natural language descriptions. Supports Playwright for UI tests, Pytest for API tests, and JUnit for Java tests.",
+      "version": "1.0.0",
+      "author": {
+        "name": "visionxu0630-code"
+      },
+      "homepage": "https://github.com/visionxu0630-code/test-skills",
+      "repository": "https://github.com/visionxu0630-code/test-skills",
+      "license": "MIT",
+      "keywords": [
+        "claude-skill",
+        "claude-code",
+        "test-automation",
+        "playwright",
+        "pytest",
+        "testing",
+        "e2e",
+        "api-testing",
+        "ui-testing"
+      ],
+      "category": "testing",
+      "tags": ["testing", "automation", "playwright", "pytest", "api", "ui"]
+    },
+    {
+      "name": "test-scenario-analysis",
+      "source": "./skills/test-scenario-analysis",
+      "description": "Analyzes test scenarios and generates comprehensive test plans based on requirements. Helps identify edge cases and coverage gaps in test strategies.",
+      "version": "1.0.0",
+      "author": {
+        "name": "visionxu0630-code"
+      },
+      "homepage": "https://github.com/visionxu0630-code/test-skills",
+      "repository": "https://github.com/visionxu0630-code/test-skills",
+      "license": "MIT",
+      "keywords": [
+        "claude-skill",
+        "claude-code",
+        "test-scenario",
+        "analysis",
+        "testing",
+        "quality-assurance",
+        "test-plan"
+      ],
+      "category": "testing",
+      "tags": ["testing", "scenario", "analysis", "quality-assurance", "test-plan"]
+    }
+  ]
 }
