@@ -2,11 +2,17 @@
   "name": "test-skills",
   "description": "A collection of test automation skills",
   "version": "1.0.0",
-  "skills": [
+  "owner": {
+    "name": "visionxu0630-code",
+    "contact": "https://github.com/visionxu0630-code"
+  },
+  "plugins": [
     {
       "name": "test-automation",
-      "file": "./skills/test-automation/SKILL.md",
-      "description": "Comprehensive test automation skill that generates test cases from natural language descriptions"
+      "description": "Comprehensive test automation skill that generates test cases from natural language descriptions",
+      "files": [
+        "./skills/test-automation/SKILL.md"
+      ]
     }
   ]
 }
