@@ -10,10 +10,10 @@
 
 ```bash
 # 添加此仓库作为 marketplace
-/plugin marketplace add your-username/test-automation-skill
+/plugin marketplace add visionxu0630-code/test-skills
 
 # 安装插件
-/plugin install test-automation-skill@test-automation
+/plugin install test-skills@test-automation
 ```
 
 ### 从本地安装（开发用）
