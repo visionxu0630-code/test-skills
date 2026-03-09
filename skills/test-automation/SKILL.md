@@ -3,206 +3,154 @@ name: test-automation
 description: Comprehensive test automation skill that generates test cases from natural language descriptions. Supports multiple testing frameworks including Playwright, Pytest, and JUnit.
 ---
 
-# Test Automation Skill
+# 测试自动化技能
 
-Automates test creation, execution, and reporting based on natural language descriptions. I'll write custom test scripts for any testing scenario you describe using appropriate frameworks (Playwright for UI, Pytest for API/unit, JUnit for Java).
+**用途：** 当用户提供测试需求描述时，自动激活此技能来自动生成测试代码、执行测试并生成报告。
 
-**CRITICAL WORKFLOW - Follow these steps in order:**
+## 触发条件
 
-1. **Parse user request** - Extract testing requirements from natural language
-2. **Identify test type** - Determine UI, API, unit, integration, etc.
-3. **Choose framework** - Select Playwright, Pytest, or JUnit appropriately
-4. **Write test script** to `/tmp/test-*.js` or `/tmp/test-*.py` or `/tmp/Test.java`
-5. **Execute test** and report results
+激活此技能当用户：
+- 描述需要测试的功能（如"验证登录表单验证邮箱格式"）
+- 请求"生成测试代码"、"创建测试"、"写自动化测试"
+- 要求"执行测试"、"运行测试"、"查看测试报告"
+- 手动使用 `/test-automation` 命令
 
-## How It Works
+## 工具依赖
 
-1. You describe what you want to test ("Verify login form validates email format")
-2. I identify test type (UI test) and select Playwright framework
-3. I write custom test script to `/tmp/test-*.js`
-4. I execute the test using the appropriate runner
-5. I report results and any screenshots/logs
+- `write` - 生成测试脚本文件
+- `bash` - 执行测试命令和安装依赖
+- `read` - 读取现有的测试文件
+- 无工具时：基于用户提供的文本内容生成测试代码
 
-## Setup (Prerequisites)
+## 工作流程
 
-First-time setup to install testing frameworks:
+### 1. 需求解析
+- 从自然语言描述中提取测试需求
+- 识别测试类型（UI、API、单元、集成等）
+- 分析测试元素和预期行为
 
-```bash
-# Install Playwright
-npm install -g playwright
-npx playwright install
+### 2. 框架选择
+- UI测试 → Playwright
+- API/单元测试 → Pytest
+- Java测试 → JUnit
 
-# Install Pytest
-pip install pytest
+### 3. 代码生成
+- 根据测试类型生成相应框架的测试代码
+- 保存到临时目录或用户指定位置
+- 包含适当的断言和验证
 
-# Install JUnit (if using Java tests)
-# Ensure Java JDK is installed
-```
+### 4. 测试执行
+- 运行生成的测试
+- 收集执行结果和日志
+- 生成测试报告
 
-## Framework Selection Logic
+## 使用示例
 
-- **Playwright**: UI testing (web browsers, mobile emulation)
-- **Pytest**: API testing, unit testing, functional testing
-- **JUnit**: Java unit/integration testing
+### 示例 1：UI测试生成
 
-## Command Interface
+**用户：**
+> 验证用户登录功能，输入正确的用户名和密码应成功跳转到仪表板页面
 
-### /test create - Create Test Cases
+**助手：**
+好的，我将为您生成UI测试：
 
-Generate test cases from natural language descriptions:
-
-```bash
-/test create "Validate user login function, entering correct username and password should successfully navigate to dashboard page"
-/test create "Test API endpoint /api/users GET request, should return status code 200 and JSON data"
-/test create "When entering invalid email format, registration form should display error message"
-```
-
-**Step 1: Parse user requirement**
-
-Analyze the natural language description and identify:
-- Test type (UI, API, unit, integration)
-- Elements to test (login form, API endpoint, form validation)
-- Expected behavior (successful navigation, status 200, error message)
-
-**Step 2: Choose appropriate framework**
-
-Based on analysis:
-- UI interactions → Playwright
-- API calls → Pytest with requests
-- Java classes → JUnit
-- Database → Pytest with database connectors
-
-**Step 3: Write test script to `/tmp`**
-
-For UI test example:
 ```javascript
-// /tmp/test-login-validation.js
+// Playwright UI测试示例
 const { chromium } = require('playwright');
 
 ( async () => {
   const browser = await chromium.launch({ headless: false });
   const page = await browser.newPage();
 
-  // Navigate to login page
+  // 导航到登录页面
   await page.goto('YOUR_LOGIN_PAGE_URL');
 
-  // Fill form with valid credentials
+  // 使用有效凭据填写表单
   await page.fill('#username', 'valid_user');
   await page.fill('#password', 'valid_password');
   await page.click('#login-button');
 
-  // Verify successful navigation to dashboard
+  // 验证成功跳转到仪表板
   await page.waitForURL('**/dashboard');
-  console.log('✅ Login successful, redirected to dashboard');
+  console.log('✅ 登录成功，已跳转到仪表板');
 
   await browser.close();
 })();
 ```
 
-For API test example:
+### 示例 2：API测试生成
+
+**用户：**
+> 测试API端点 /api/users GET请求，应返回状态码200和JSON数据
+
+**助手：**
+好的，我将为您生成API测试：
+
 ```python
-# /tmp/test-api-users.py
 import requests
 import pytest
 
 def test_api_users_get():
-    """Test GET request to /api/users endpoint"""
+    """测试 /api/users 端点的GET请求"""
     response = requests.get("http://localhost:8000/api/users")
 
     assert response.status_code == 200
     assert response.headers['Content-Type'] == 'application/json'
 
     data = response.json()
-    assert isinstance(data, list)  # Expecting array of users
+    assert isinstance(data, list)  # 期望用户数组
 
-    print(f"✅ API test passed: Got {len(data)} users")
+    print(f"✅ API测试通过: 获取到 {len(data)} 个用户")
 ```
 
-### /test run - Execute Tests
+### 示例 3：测试执行和报告
 
-Execute existing test files:
+**用户：**
+> 运行上面生成的测试并给我报告
 
-```bash
-/test run all                    # Run all tests
-/test run failed                 # Run only failed tests
-/test run login_tests          # Run specific test file/directory
-/test run --framework playwright # Run with specific framework
-/test run --tags auth          # Run tests with specific tags
-/test run --priority high      # Run high priority tests only
-```
+**助手：**
+正在执行测试...
 
-**Execution workflow:**
+1. 确保所需框架已安装
+2. 运行测试
+3. 生成测试报告
 
-1. Identify test file based on pattern (glob for `*login*`, or exact filename)
-2. Determine framework from file extension
-3. Execute with appropriate command:
-   - `.js` files → `npx playwright test` or `node`
-   - `.py` files → `pytest`
-   - `.java` files → `javac` then `java`
+执行结果：所有测试通过，覆盖率95%
 
-### /test report - Generate Reports
+## 框架选择指南
 
-Generate test reports:
+- **Playwright**: Web UI测试、浏览器自动化、移动端模拟
+- **Pytest**: API测试、单元测试、功能测试、数据驱动测试
+- **JUnit**: Java应用程序的单元/集成测试
 
-```bash
-/test report                   # Basic report
-/test report --detailed        # Detailed report
-/test report --format html     # HTML report
-/test report --coverage        # Coverage report
-```
+## 输出模板
 
-**Reporting workflow:**
-
-1. Collect output from test execution
-2. Parse test results and generate summary
-3. Calculate metrics (pass/fail ratio, execution time)
-4. Optionally generate formatted report files
-
-### /test suggest - Suggest Test Scenarios
-
-Suggest additional test scenarios:
-
-```bash
-/test suggest --edge-cases "login function"
-/test suggest --security "payment feature"
-/test suggest --performance "search functionality"
-```
-
-**Analysis workflow:**
-
-1. Review existing tests for coverage gaps
-2. Apply testing heuristics (boundary values, error conditions, etc.)
-3. Generate recommendations in natural language
-
-## Common Testing Patterns
-
-### Playwright UI Test Template
+### Playwright测试模板
 
 ```javascript
-// /tmp/test-template-playwright.js
 const { chromium } = require('playwright');
 
-( async () => {
+(async () => {
   const browser = await chromium.launch({ headless: false, slowMo: 50 });
   const page = await browser.newPage();
 
-  // Set up base URL from environment or user input
+  // 设置基础URL
   const BASE_URL = process.env.TEST_BASE_URL || 'http://localhost:3000';
 
   try {
     await page.goto(BASE_URL + '/PATH_TO_TEST');
 
-    // Add your test logic here
+    // 添加您的测试逻辑
     await page.fill('SELECTOR', 'VALUE');
     await page.click('BUTTON_SELECTOR');
 
-    // Assertions
+    // 断言
     await page.waitForURL('EXPECTED_URL');
     await expect(page.locator('CHECK_SELECTOR')).toBeVisible();
 
-    console.log('✅ Test passed');
+    console.log('✅ 测试通过');
   } catch (error) {
-    console.error('❌ Test failed:', error.message);
+    console.error('❌ 测试失败:', error.message);
     await page.screenshot({ path: `/tmp/error-${Date.now()}.png` });
     throw error;
   } finally {
@@ -211,10 +159,9 @@ const { chromium } = require('playwright');
 })();
 ```
 
-### Pytest API Test Template
+### Pytest测试模板
 
 ```python
-# /tmp/test-template-pytest.py
 import requests
 import pytest
 import os
@@ -222,24 +169,24 @@ import os
 BASE_URL = os.environ.get('TEST_API_BASE_URL', 'http://localhost:8000')
 
 def test_api_endpoint():
-    """Template for API endpoint testing"""
+    """API端点测试模板"""
     response = requests.get(f"{BASE_URL}/ENDPOINT")
 
     assert response.status_code == 200
     assert response.headers.get('Content-Type') == 'application/json'
 
     data = response.json()
-    # Add assertions based on expected response structure
+    # 根据预期响应结构添加断言
     assert 'expected_field' in data
 
 def test_api_post():
-    """Template for POST request testing"""
+    """POST请求测试模板"""
     payload = {
         "key": "value"
     }
 
     response = requests.post(f"{BASE_URL}/ENDPOINT", json=payload)
-    assert response.status_code == 201  # Created
+    assert response.status_code == 201  # 已创建
 
     data = response.json()
     assert data['success'] is True
@@ -248,56 +195,40 @@ if __name__ == "__main__":
     pytest.main([__file__, "-v"])
 ```
 
-### JUnit Java Test Template
+## 快速安装指南
 
-```java
-// /tmp/TestTemplate.java
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+如果遇到依赖缺失，请运行相应的安装命令：
 
-public class TestTemplate {
+```bash
+# 安装Playwright
+npm install -g playwright
+npx playwright install
 
-    @Test
-    public void testCase() {
-        // Add your test logic here
-        String result = performOperation();
-        assertEquals("expected", result);
+# 安装Pytest
+pip install pytest requests
 
-        System.out.println("✅ Test passed");
-    }
-
-    @Test
-    public void edgeCaseTest() {
-        // Test boundary conditions
-        assertThrows(IllegalArgumentException.class, () -> {
-            performOperationWithInvalidInput(null);
-        });
-    }
-
-    private String performOperation() {
-        // Operation to test
-        return "expected";
-    }
-
-    private void performOperationWithInvalidInput(String input) {
-        if (input == null) {
-            throw new IllegalArgumentException("Input cannot be null");
-        }
-    }
-}
+# Java项目需要JDK
+# 确保Java JDK已安装
 ```
 
-## Best Practices
+## 质量标准
 
-- Write tests to `/tmp` directory to avoid cluttering projects
-- Use descriptive test names that explain the functionality being tested
-- Include appropriate waits and assertions for reliable tests
-- Parameterize URLs and values using environment variables when possible
-- Clean up test data after tests complete
+- ✅ **准确性** - 测试准确反映用户需求
+- ✅ **完整性** - 包含必要的断言和验证
+- ✅ **可维护性** - 代码结构清晰，易于修改
+- ✅ **可执行性** - 测试可在适当环境中运行
 
-## Troubleshooting
+## 不适用场景
 
-- If Playwright tests fail, ensure browsers are installed: `npx playwright install`
-- For Pytest tests, verify packages are installed: `pip install pytest requests`
-- For Java tests, ensure JDK is properly installed and configured
-- Check file permissions if tests cannot be executed from `/tmp`
+以下情况不激活此技能：
+- 简单的理论咨询（如"什么是测试自动化"）
+- 非测试相关的讨论
+- 用户明确表示不需要生成实际代码
+
+## 最佳实践
+
+1. 使用描述性测试名称，说明被测试功能
+2. 包含适当的等待和断言以确保测试可靠性
+3. 尽可能使用环境变量参数化URL和值
+4. 测试完成后清理测试数据
+5. 为不同测试场景编写独立的测试函数
